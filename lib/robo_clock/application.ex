@@ -11,8 +11,6 @@ defmodule RoboClock.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: RoboClock.Supervisor]
 
-    VintageNetWizard.run_wizard()
-
     children =
       [
         # Children for all targets
@@ -33,6 +31,8 @@ defmodule RoboClock.Application do
   end
 
   def children(_target) do
+    VintageNetWizard.run_if_unconfigured()
+
     [
       # Children for all targets except host
       # Starts a worker by calling: RoboClock.Worker.start_link(arg)

@@ -1,6 +1,10 @@
-firwmare:
+firwmare.burn:
 	MIX_TARGET=rpi0 mix do deps.get, firmware, firmware.burn
-.PHONY: firmware
+.PHONY: firmware.burn
+
+firmware.upload:
+	MIX_TARGET=rpi0 mix do firmware, upload roboclock.local
+.PHONY: firmware.upload
 
 ssh:
 	ssh roboclock.local

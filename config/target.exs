@@ -61,6 +61,9 @@ config :vintage_net,
     {"wlan0", %{type: VintageNetWiFi}}
   ]
 
+config :vintage_net_wizard,
+  ssid: "ROBOCLOCK"
+
 config :mdns_lite,
   # The `host` key specifies what hostnames mdns_lite advertises.  `:hostname`
   # advertises the device's hostname.local. For the official Nerves systems, this

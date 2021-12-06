@@ -20,9 +20,6 @@ config :nerves, :firmware, rootfs_overlay: "rootfs_overlay"
 
 config :nerves, source_date_epoch: "1638734549"
 
-config :vintage_net_wizard,
-  ssid: "ROBOCLOCK"
-
 # Use Ringlogger as the logger backend and remove :console.
 # See https://hexdocs.pm/ring_logger/readme.html for more information on
 # configuring ring_logger.

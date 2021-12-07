@@ -36,6 +36,7 @@ defmodule RoboClock.MixProject do
       {:ring_logger, "~> 0.8.1"},
       {:toolshed, "~> 0.2.13"},
       {:vintage_net_wizard, "~> 0.4"},
+      {:matrix, "~> 0.3.2"},
 
       # Dependencies for all targets except :host
       {:nerves_runtime, "~> 0.11.3", targets: @all_targets},
@@ -48,6 +49,7 @@ defmodule RoboClock.MixProject do
       # changes to your application are needed.
       {:nerves_system_rpi, "~> 1.17", runtime: false, targets: :rpi},
       {:nerves_system_rpi0, "~> 1.17", runtime: false, targets: :rpi0},
+      {:scroll_hat, "~> 0.2.0", targets: :rpi0},
       {:nerves_system_rpi2, "~> 1.17", runtime: false, targets: :rpi2},
       {:nerves_system_rpi3, "~> 1.17", runtime: false, targets: :rpi3},
       {:nerves_system_rpi3a, "~> 1.17", runtime: false, targets: :rpi3a},

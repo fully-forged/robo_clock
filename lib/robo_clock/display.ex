@@ -2,8 +2,31 @@ defmodule RoboClock.Display do
   @moduledoc false
   @height 7
   @separator Matrix.new(@height, 1, 0)
+  use GenServer
 
-  def render(datetime) do
+  def start_link(_) do
+    GenServer.start_link(__MODULE__, :ignored, name: __MODULE__)
+  end
+
+  def init(:ignored) do
+    SystemRegistry.register(min_interval: 1000)
+    {:ok, :ignored}
+  end
+
+  def handle_info({:system_registry, :global, %{state: state}}, s) do
+    state.current_time
+    |> DateTime.from_unix!()
+    |> render()
+    |> ScrollHat.Display.draw()
+
+    {:noreply, s}
+  end
+
+  def handle_info(_, s) do
+    {:noreply, s}
+  end
+
+  defp render(datetime) do
     datetime
     |> extract_digits
     |> chars_to_matrix()
@@ -17,13 +40,10 @@ defmodule RoboClock.Display do
     hour ++ minute
   end
 
-  def pad_with_zero([a]), do: [0, a]
-  def pad_with_zero(a), do: a
+  defp pad_with_zero([a]), do: [0, a]
+  defp pad_with_zero(a), do: a
 
-  def pad_with_space([a]), do: [:space, a]
-  def pad_with_space(a), do: a
-
-  def chars_to_matrix(chars) do
+  defp chars_to_matrix(chars) do
     center =
       chars
       |> Enum.map(&RoboClock.Charset.char/1)

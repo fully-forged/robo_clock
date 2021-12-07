@@ -33,15 +33,10 @@ defmodule RoboClock.Application do
   def children(_target) do
     VintageNetWizard.run_if_unconfigured()
 
-    Task.async(fn ->
-      Process.sleep(3000)
-      t = DateTime.utc_now()
-      canvas = RoboClock.Display.render(t)
-      ScrollHat.Display.draw(canvas)
-    end)
-
     [
-      {ScrollHat.Display, []}
+      {ScrollHat.Display, []},
+      {RoboClock.Display, []},
+      {RoboClock.Ticker, []}
       # Children for all targets except host
       # Starts a worker by calling: RoboClock.Worker.start_link(arg)
       # {RoboClock.Worker, arg},

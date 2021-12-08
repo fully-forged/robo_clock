@@ -12,6 +12,7 @@ defmodule RoboClock.Reset do
   end
 
   def init(:ignored) do
+    {:ok, _pid} = @buttons_driver.start_link(handler: self())
     {:ok, %{status: :released, timestamp: 0}}
   end
 

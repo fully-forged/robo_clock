@@ -31,11 +31,14 @@ defmodule RoboClock.Application do
   end
 
   def children(_target) do
-    VintageNetWizard.run_if_unconfigured()
+    VintageNetWizard.run_if_unconfigured(
+      ui: [
+        title: "RoboClock"
+      ]
+    )
 
     [
       {RoboClock.Display.driver(), []},
-      {RoboClock.Reset.buttons_driver(), handler: RoboClock.Reset},
       {RoboClock.Display, []},
       {RoboClock.Reset, []},
       {RoboClock.Ticker, []}

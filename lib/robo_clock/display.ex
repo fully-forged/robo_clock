@@ -14,21 +14,20 @@ defmodule RoboClock.Display do
   end
 
   def init(:ignored) do
-    SystemRegistry.register(min_interval: 1000)
+    RoboClock.PubSub.subscribe(:current_time)
     {:ok, :ignored}
   end
 
-  def handle_info({:system_registry, :global, %{state: state}}, s) do
-    state.current_time
-    |> DateTime.from_unix!()
+  def handle_info({RoboClock.PubSub.Broadcast, :current_time, current_time}, state) do
+    current_time
     |> render()
     |> @driver.draw()
 
-    {:noreply, s}
+    {:noreply, state}
   end
 
-  def handle_info(_, s) do
-    {:noreply, s}
+  def handle_info(_, state) do
+    {:noreply, state}
   end
 
   defp render(datetime) do

@@ -37,7 +37,6 @@ defmodule RoboClock.MixProject do
       {:toolshed, "~> 0.2.13"},
       {:vintage_net_wizard, "~> 0.4"},
       {:matrix, "~> 0.3.2"},
-      {:system_registry, "~> 0.8.2"},
 
       # Dependencies for all targets except :host
       {:nerves_runtime, "~> 0.11.3", targets: @all_targets},

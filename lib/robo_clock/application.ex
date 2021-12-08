@@ -34,6 +34,8 @@ defmodule RoboClock.Application do
     RoboClock.Wizard.run_if_unconfigured()
 
     [
+      {RoboClock.PubSub, []},
+      {RoboClock.Buttons, []},
       {RoboClock.Display.driver(), []},
       {RoboClock.Display, []},
       {RoboClock.Reset, []},

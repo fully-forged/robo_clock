@@ -1,21 +1,19 @@
 defmodule RoboClock.Reset do
   use GenServer
+  require Logger
 
   @reset_after System.convert_time_unit(5, :second, :native)
-  @buttons_driver Application.get_env(:robo_clock, :buttons_driver)
-
-  def buttons_driver, do: @buttons_driver
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, :ignored, name: __MODULE__)
   end
 
   def init(:ignored) do
-    {:ok, _pid} = @buttons_driver.start_link(handler: self())
+    :ok = RoboClock.PubSub.subscribe(:buttons)
     {:ok, %{status: :released, timestamp: 0}}
   end
 
-  def handle_info(event, state) do
+  def handle_info({RoboClock.PubSub.Broadcast, :buttons, event}, state) do
     case event.name do
       :y -> handle_reset(event, state)
       _other -> {:noreply, state}

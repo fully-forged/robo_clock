@@ -14,11 +14,7 @@ defmodule RoboClock.Ticker do
   def handle_info(:tick, state) do
     {elapsed, _} =
       :timer.tc(fn ->
-        now =
-          DateTime.utc_now()
-          |> DateTime.to_unix()
-
-        SystemRegistry.update([:state, :current_time], now)
+        RoboClock.PubSub.publish(:current_time, DateTime.utc_now())
       end)
 
     Process.send_after(self(), :tick, 1000 - div(elapsed, 1000))

@@ -36,6 +36,7 @@ defmodule RoboClock.Application do
     [
       {ScrollHat.Display, []},
       {RoboClock.Display, []},
+      {RoboClock.Reset, []},
       {RoboClock.Ticker, []}
       # Children for all targets except host
       # Starts a worker by calling: RoboClock.Worker.start_link(arg)

@@ -31,11 +31,7 @@ defmodule RoboClock.Application do
   end
 
   def children(_target) do
-    VintageNetWizard.run_if_unconfigured(
-      ui: [
-        title: "RoboClock"
-      ]
-    )
+    RoboClock.Wizard.run_if_unconfigured()
 
     [
       {RoboClock.Display.driver(), []},

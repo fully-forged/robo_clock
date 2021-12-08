@@ -1,6 +1,5 @@
 defmodule RoboClock.Reset do
   use GenServer
-  require Logger
 
   @reset_after System.convert_time_unit(5, :second, :native)
   @buttons_driver Application.get_env(:robo_clock, :buttons_driver)
@@ -24,12 +23,10 @@ defmodule RoboClock.Reset do
   end
 
   defp handle_reset(%{action: :released, timestamp: timestamp}, %{status: :released} = s) do
-    Logger.debug("no-op")
     {:noreply, %{s | timestamp: timestamp}}
   end
 
   defp handle_reset(%{action: :pressed, timestamp: timestamp}, %{status: :released} = s) do
-    Logger.debug("pressed")
     {:noreply, %{s | status: :pressed, timestamp: timestamp}}
   end
 
@@ -37,10 +34,7 @@ defmodule RoboClock.Reset do
     elapsed = timestamp - s.timestamp
 
     if elapsed >= @reset_after do
-      VintageNetWizard.run_wizard()
-      Logger.debug("will reset")
-    else
-      Logger.debug("Should not reset")
+      RoboClock.Wizard.run()
     end
 
     {:noreply, %{s | status: :released, timestamp: timestamp}}

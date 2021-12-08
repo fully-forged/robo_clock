@@ -15,7 +15,8 @@ defmodule RoboClock.Display do
 
   def init(:ignored) do
     RoboClock.PubSub.subscribe(:current_time)
-    {:ok, %{brightness: 1}}
+    RoboClock.PubSub.subscribe(:set_brightness)
+    {:ok, %{brightness: RoboClock.Brightness.initial()}}
   end
 
   def handle_info({RoboClock.PubSub.Broadcast, :current_time, current_time}, state) do

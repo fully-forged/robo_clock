@@ -39,6 +39,7 @@ defmodule RoboClock.Application do
       {RoboClock.Display.driver(), []},
       {RoboClock.Display, []},
       {RoboClock.Reset, []},
+      {RoboClock.Brightness, []},
       {RoboClock.Ticker, []}
       # Children for all targets except host
       # Starts a worker by calling: RoboClock.Worker.start_link(arg)

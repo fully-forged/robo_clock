@@ -11,6 +11,12 @@ defmodule RoboClock.Display.Mock do
     end)
   end
 
+  def set_brightness(brightness) do
+    Logger.debug(fn ->
+      "Dummy Display -> set brightness to #{brightness}"
+    end)
+  end
+
   defp pretty_format(m) do
     m
     |> Enum.reverse()

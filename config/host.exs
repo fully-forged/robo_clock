@@ -4,3 +4,7 @@ import Config
 
 config :vintage_net,
   resolvconf: "/dev/null"
+
+config :robo_clock,
+  display_driver: RoboClock.Display.Mock,
+  buttons_driver: RoboClock.Buttons.Mock

@@ -34,7 +34,8 @@ defmodule RoboClock.Application do
     VintageNetWizard.run_if_unconfigured()
 
     [
-      {ScrollHat.Display, []},
+      {RoboClock.Display.driver(), []},
+      {RoboClock.Reset.buttons_driver(), handler: RoboClock.Reset},
       {RoboClock.Display, []},
       {RoboClock.Reset, []},
       {RoboClock.Ticker, []}

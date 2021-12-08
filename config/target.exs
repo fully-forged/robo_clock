@@ -93,6 +93,10 @@ config :mdns_lite,
     }
   ]
 
+config :robo_clock,
+  display_driver: ScrollHat.Display,
+  buttons_driver: ScrollHat.Buttons
+
 # Import target specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 # Uncomment to use target specific configurations

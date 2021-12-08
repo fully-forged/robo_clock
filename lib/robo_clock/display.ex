@@ -1,8 +1,13 @@
 defmodule RoboClock.Display do
   @moduledoc false
+  use GenServer
+
+  @driver Application.get_env(:robo_clock, :display_driver)
+
   @height 7
   @separator Matrix.new(@height, 1, 0)
-  use GenServer
+
+  def driver, do: @driver
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, :ignored, name: __MODULE__)
@@ -17,7 +22,7 @@ defmodule RoboClock.Display do
     state.current_time
     |> DateTime.from_unix!()
     |> render()
-    |> ScrollHat.Display.draw()
+    |> @driver.draw()
 
     {:noreply, s}
   end

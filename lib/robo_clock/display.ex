@@ -2,10 +2,11 @@ defmodule RoboClock.Display do
   @moduledoc false
   use GenServer
 
-  @driver Application.get_env(:robo_clock, :display_driver)
+  import Integer
 
-  @height 7
-  @separator Matrix.new(@height, 1, 0)
+  @driver Application.get_env(:robo_clock, :display_driver)
+  @separator RoboClock.Charset.char(:column)
+  @zero_width_column RoboClock.Charset.char(:zero_width_column)
 
   def driver, do: @driver
 
@@ -49,8 +50,11 @@ defmodule RoboClock.Display do
     minute = Integer.digits(time.minute)
     minute = pad_with_zero(minute)
     hour = pad_with_zero(hour)
-    hour ++ minute
+    hour ++ [sep(time.second)] ++ minute
   end
+
+  defp sep(second) when is_even(second), do: :colon
+  defp sep(_second), do: :column
 
   defp pad_with_zero([a]), do: [0, a]
   defp pad_with_zero(a), do: a
@@ -64,9 +68,9 @@ defmodule RoboClock.Display do
 
     # I apologize for this - it's the result of trial and error
     # and ultimately I should know better
-    [@separator | center]
+    center
     |> Enum.reverse()
-    |> join(@separator)
+    |> join(@zero_width_column)
     |> Enum.reverse()
     |> Enum.map(&Enum.reverse/1)
     |> Enum.reverse()

@@ -64,4 +64,13 @@ defmodule RoboClock.Charset do
 
   def char(:square),
     do: [[0, 0, 0], [0, 0, 0], [1, 1, 1], [1, 1, 1], [1, 1, 1], [0, 0, 0], [0, 0, 0]]
+
+  def char(:colon),
+    do: [[0], [0], [1], [0], [1], [0], [0]]
+
+  def char(:column),
+    do: [[0], [0], [0], [0], [0], [0], [0]]
+
+  def char(:zero_width_column),
+    do: [[], [], [], [], [], [], []]
 end

@@ -1,6 +1,7 @@
 defmodule RoboClock.Brightness do
   use GenServer
-  require Logger
+
+  alias RoboClock.PubSub
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, :ignored, name: __MODULE__)
@@ -13,21 +14,17 @@ defmodule RoboClock.Brightness do
     {:ok, initial()}
   end
 
-  def handle_info({RoboClock.PubSub.Broadcast, :buttons, event}, state) do
-    case event.name do
-      :b -> handle_brightness(event, state)
-      _other -> {:noreply, state}
-    end
-  end
+  defguardp is_b_pressed(event) when event.name == :b and event.action == :pressed
 
-  defp handle_brightness(%{action: :pressed}, brightness) do
+  def handle_info({PubSub.Broadcast, :buttons, event}, brightness)
+      when is_b_pressed(event) do
     next_brightness = next(brightness)
 
-    RoboClock.PubSub.publish(:set_brightness, next_brightness)
+    PubSub.publish(:set_brightness, next_brightness)
     {:noreply, next_brightness}
   end
 
-  defp handle_brightness(_event, state), do: {:noreply, state}
+  def handle_info(_event, state), do: {:noreply, state}
 
   defp next(1), do: 10
   defp next(10), do: 50

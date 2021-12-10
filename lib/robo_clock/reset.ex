@@ -1,6 +1,7 @@
 defmodule RoboClock.Reset do
   use GenServer
-  require Logger
+
+  alias RoboClock.PubSub
 
   @reset_after System.convert_time_unit(5, :second, :native)
 
@@ -9,32 +10,33 @@ defmodule RoboClock.Reset do
   end
 
   def init(:ignored) do
-    :ok = RoboClock.PubSub.subscribe(:buttons)
+    :ok = PubSub.subscribe(:buttons)
     {:ok, %{status: :released, timestamp: 0}}
   end
 
-  def handle_info({RoboClock.PubSub.Broadcast, :buttons, event}, state) do
-    case event.name do
-      :y -> handle_reset(event, state)
-      _other -> {:noreply, state}
-    end
+  defguardp is_y_released(event) when event.name == :y and event.action == :released
+  defguardp is_y_pressed(event) when event.name == :y and event.action == :pressed
+
+  def handle_info({PubSub.Broadcast, :buttons, event}, state)
+      when is_y_released(event) and state.status == :released do
+    {:noreply, %{state | timestamp: event.timestamp}}
   end
 
-  defp handle_reset(%{action: :released, timestamp: timestamp}, %{status: :released} = s) do
-    {:noreply, %{s | timestamp: timestamp}}
+  def handle_info({PubSub.Broadcast, :buttons, event}, state)
+      when is_y_pressed(event) and state.status == :released do
+    {:noreply, %{state | status: :pressed, timestamp: event.timestamp}}
   end
 
-  defp handle_reset(%{action: :pressed, timestamp: timestamp}, %{status: :released} = s) do
-    {:noreply, %{s | status: :pressed, timestamp: timestamp}}
-  end
-
-  defp handle_reset(%{action: :released, timestamp: timestamp}, %{status: :pressed} = s) do
-    elapsed = timestamp - s.timestamp
+  def handle_info({PubSub.Broadcast, :buttons, event}, state)
+      when is_y_released(event) and state.status == :pressed do
+    elapsed = event.timestamp - state.timestamp
 
     if elapsed >= @reset_after do
       RoboClock.Wizard.run()
     end
 
-    {:noreply, %{s | status: :released, timestamp: timestamp}}
+    {:noreply, %{state | status: :released, timestamp: event.timestamp}}
   end
+
+  def handle_info(_event, state), do: {:noreply, state}
 end

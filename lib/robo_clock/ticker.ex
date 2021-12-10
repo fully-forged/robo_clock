@@ -2,6 +2,8 @@ defmodule RoboClock.Ticker do
   @moduledoc false
   use GenServer
 
+  @timezone "Europe/London"
+
   def start_link(_) do
     GenServer.start_link(__MODULE__, :ignored, name: __MODULE__)
   end
@@ -14,7 +16,8 @@ defmodule RoboClock.Ticker do
   def handle_info(:tick, state) do
     {elapsed, _} =
       :timer.tc(fn ->
-        RoboClock.PubSub.publish(:current_time, DateTime.utc_now())
+        now = Calendar.DateTime.now!(@timezone)
+        RoboClock.PubSub.publish(:current_time, now)
       end)
 
     Process.send_after(self(), :tick, 1000 - div(elapsed, 1000))

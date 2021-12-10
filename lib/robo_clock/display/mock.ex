@@ -17,9 +17,10 @@ defmodule RoboClock.Display.Mock do
     end)
   end
 
-  defp pretty_format(m) do
+  def pretty_format(m) do
     m
     |> Enum.reverse()
+    |> Enum.map(&Enum.reverse/1)
     |> Enum.map(fn r -> show_row(r) <> "\n" end)
     |> add_horizontal_borders()
     |> Enum.join("")
@@ -29,8 +30,8 @@ defmodule RoboClock.Display.Mock do
     str =
       r
       |> Enum.map(fn
-        1 -> "X"
         0 -> " "
+        _ -> "X"
       end)
       |> Enum.join("")
 

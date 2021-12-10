@@ -38,7 +38,7 @@ defmodule RoboClock.Display do
     {:noreply, state}
   end
 
-  defp render(datetime, brightness) do
+  def render(datetime, brightness) do
     datetime
     |> extract_digits
     |> chars_to_matrix()

@@ -31,16 +31,16 @@ defmodule RoboClock.MixProject do
   defp deps do
     [
       # Dependencies for all targets
-      {:nerves, "~> 1.7.4", runtime: false},
-      {:shoehorn, "~> 0.8.0"},
-      {:ring_logger, "~> 0.8.1"},
-      {:toolshed, "~> 0.2.13"},
+      {:nerves, "~> 1.10.2", runtime: false},
+      {:shoehorn, "~> 0.9.1"},
+      {:ring_logger, "~> 0.10.0"},
+      {:toolshed, "~> 0.3.1"},
       {:vintage_net_wizard, "~> 0.4"},
       {:matrix, "~> 0.3.2"},
       {:calendar, "~> 1.0"},
 
       # Dependencies for all targets except :host
-      {:nerves_runtime, "~> 0.11.3", targets: @all_targets},
+      {:nerves_runtime, "~> 0.13.3", targets: @all_targets},
       {:nerves_pack, "~> 0.7.0", targets: @all_targets},
 
       # Dependencies for specific targets

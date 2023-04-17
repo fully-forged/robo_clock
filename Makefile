@@ -3,7 +3,8 @@ firwmare.burn:
 .PHONY: firmware.burn
 
 firmware.upload:
-	MIX_TARGET=rpi0 mix do firmware, upload roboclock.local
+	MIX_TARGET=rpi0 mix firmware
+	./upload roboclock.local
 .PHONY: firmware.upload
 
 ssh:

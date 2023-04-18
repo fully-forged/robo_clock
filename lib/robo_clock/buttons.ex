@@ -1,7 +1,7 @@
 defmodule RoboClock.Buttons do
   use GenServer
 
-  @buttons_driver Application.get_env(:robo_clock, :buttons_driver)
+  @buttons_driver Application.compile_env(:robo_clock, :buttons_driver)
 
   def start_link(_) do
     GenServer.start_link(__MODULE__, :ignored, name: __MODULE__)

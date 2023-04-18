@@ -4,7 +4,7 @@ defmodule RoboClock.Display do
 
   import Integer
 
-  @driver Application.get_env(:robo_clock, :display_driver)
+  @driver Application.compile_env(:robo_clock, :display_driver)
   @separator RoboClock.Charset.char(:column)
   @zero_width_column RoboClock.Charset.char(:zero_width_column)
 

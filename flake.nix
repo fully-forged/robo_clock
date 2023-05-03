@@ -23,6 +23,14 @@
           erlang = pkgs.beam.interpreters.${erlangVersion};
           elixir = pkgs.beam.packages.${erlangVersion}.${elixirVersion};
           elixir-ls = pkgs.beam.packages.${erlangVersion}.elixir-ls;
+          fwup = pkgs.fwup;
+          squashfs = pkgs.squashfsTools;
+          coreutils = pkgs.coreutils;
+          pkg-config = pkgs.pkg-config;
+          autoconf = pkgs.autoconf;
+          automake = pkgs.automake;
+          curl = pkgs.curl;
+
         in
         rec {
           # TODO: Add your Elixir package
@@ -34,6 +42,13 @@
               erlang
               elixir
               elixir-ls
+              fwup
+              squashfs
+              coreutils
+              pkg-config
+              autoconf
+              automake
+              curl
             ];
           };
         }

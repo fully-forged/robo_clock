@@ -1,32 +1,26 @@
 # RoboClock
 
-**TODO: Add description**
+RoboClock is a firmware for the [Pimoroni Scroll Bot](https://shop.pimoroni.com/products/scroll-bot-pi-zero-w-project-kit?variant=38476730378&gclid=Cj0KCQjwr82iBhCuARIsAO0EAZznNj-lffNXKPynnAZUE9o8-09JADqg8rVW_qU8wyGrcMQSPVyIdR8aAt8jEALw_wcB).
 
-## Targets
+## Setup
 
-Nerves applications produce images for hardware targets based on the
-`MIX_TARGET` environment variable. If `MIX_TARGET` is unset, `mix` builds an
-image that runs on the host (e.g., your laptop). This is useful for executing
-logic tests, running utilities, and debugging. Other targets are represented by
-a short name like `rpi3` that maps to a Nerves system image for that platform.
-All of this logic is in the generated `mix.exs` and may be customized. For more
-information about targets see:
+Requires [Nix with Flake Support](https://nixos.wiki/wiki/Flakes) and a working [direnv](https://direnv.net) installation.
 
-https://hexdocs.pm/nerves/targets.html#content
+Upon cloning and running `direnv allow`, Nix should kick in and install dependencies, leaving an environment ready for development.
 
-## Getting Started
+## Development
 
-To start your Nerves app:
-  * `export MIX_TARGET=my_target` or prefix every command with
-    `MIX_TARGET=my_target`. For example, `MIX_TARGET=rpi3`
-  * Install dependencies with `mix deps.get`
-  * Create firmware with `mix firmware`
-  * Burn to an SD card with `mix firmware.burn`
+All common tasks are covered in the included Makefile.
 
-## Learn more
+## Installing/updating the firmware
 
-  * Official docs: https://hexdocs.pm/nerves/getting-started.html
-  * Official website: https://nerves-project.org/
-  * Forum: https://elixirforum.com/c/nerves-forum
-  * Discussion Slack elixir-lang #nerves ([Invite](https://elixir-slackin.herokuapp.com/))
-  * Source: https://github.com/nerves-project/nerves
+To flash a MicroSD card, use `make firmware.burn`. For over-the-air updates to a local device, you can then use `make firmware.upload`.
+
+## Usage
+
+On first boot, the device will broadcast a `ROBOCLOCK` wifi network - you can connect to it and setup the WiFi connection (used to keep the clock synchronized). Once setup, the connection settings will persist across reboots.
+
+## Buttons
+
+- If you keep the top left button pressed for more than 5 seconds, it will reset the network settings (see the Usage section).
+- If you press the top right button, the display will cycle 3 different levels of brightness.

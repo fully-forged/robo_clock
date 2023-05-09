@@ -30,6 +30,11 @@
           autoconf = pkgs.autoconf;
           automake = pkgs.automake;
           curl = pkgs.curl;
+          gstat = pkgs.writeShellScriptBin "gstat" ''
+            #!/usr/bin/env bash
+
+            stat "$@"
+          '';
 
         in
         rec {
@@ -49,6 +54,7 @@
               autoconf
               automake
               curl
+              gstat
             ];
           };
         }

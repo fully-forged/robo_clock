@@ -1,0 +1,2 @@
+use flake .
+export SSH_PUBLIC_KEY_OP_PATH='op://Private/<reference>/public key'

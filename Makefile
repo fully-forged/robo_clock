@@ -3,7 +3,7 @@ firwmare.burn:
 .PHONY: firmware.burn
 
 firmware.upload: firmware
-	./upload roboclock.local
+	./upload.sh roboclock.local
 .PHONY: firmware.upload
 
 firmware:

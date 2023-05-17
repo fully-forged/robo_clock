@@ -1,7 +1,18 @@
 defmodule RoboClock.Charset do
-  @moduledoc false
+  @moduledoc """
+  The charset is implemented via a Matrix.
+
+  Each character is 7 pixels tall, and implemented as a matrix of 7 elements,
+  with all elements being lists of the same size.
+
+  A custom sigil (`~h`) is available to write characters in a pixel grid.
+
+  To write a character, one should only use `1` for pixel on, and `0` for pixel off.
+  """
 
   import RoboClock.Charset.Sigils
+
+  @num_lines 7
 
   ################################################################################
   #################################### SPACE #####################################
@@ -9,8 +20,7 @@ defmodule RoboClock.Charset do
 
   def char(?\s), do: char(:space)
 
-  def char(:space),
-    do: [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+  def char(:space), do: repeat([0, 0, 0], @num_lines)
 
   ################################################################################
   ################################### NUMBERS ####################################
@@ -140,6 +150,13 @@ defmodule RoboClock.Charset do
   0
   )
 
-  def char(:zero_width_column),
-    do: [[], [], [], [], [], [], []]
+  def char(:zero_width_column), do: repeat([], @num_lines)
+
+  ################################################################################
+  ################################## HELPERS #####################################
+  ################################################################################
+
+  defp repeat(char, times) do
+    Enum.map(1..times, fn _ -> char end)
+  end
 end

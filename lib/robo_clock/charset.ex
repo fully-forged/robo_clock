@@ -16,8 +16,7 @@ defmodule RoboClock.Charset do
   ################################### NUMBERS ####################################
   ################################################################################
 
-  def char(1), do: [[0, 0, 0], [0, 1, 0], [1, 1, 0], [0, 1, 0], [0, 1, 0], [1, 1, 1], [0, 0, 0]]
-  def new_char(1), do: ~h(
+  def char(1), do: ~h(
   000
   010
   110
@@ -27,8 +26,7 @@ defmodule RoboClock.Charset do
   000
   )
 
-  def char(2), do: [[0, 0, 0], [1, 1, 1], [0, 0, 1], [1, 1, 1], [1, 0, 0], [1, 1, 1], [0, 0, 0]]
-  def new_char(2), do: ~h(
+  def char(2), do: ~h(
   000
   111
   001
@@ -38,8 +36,7 @@ defmodule RoboClock.Charset do
   000
   )
 
-  def char(3), do: [[0, 0, 0], [1, 1, 1], [0, 0, 1], [1, 1, 1], [0, 0, 1], [1, 1, 1], [0, 0, 0]]
-  def new_char(3), do: ~h(
+  def char(3), do: ~h(
   000
   111
   001
@@ -49,8 +46,7 @@ defmodule RoboClock.Charset do
   000
   )
 
-  def char(4), do: [[0, 0, 0], [1, 0, 1], [1, 0, 1], [1, 1, 1], [0, 0, 1], [0, 0, 1], [0, 0, 0]]
-  def new_char(4), do: ~h(
+  def char(4), do: ~h(
   000
   101
   101
@@ -60,8 +56,7 @@ defmodule RoboClock.Charset do
   000
   )
 
-  def char(5), do: [[0, 0, 0], [1, 1, 1], [1, 0, 0], [1, 1, 1], [0, 0, 1], [1, 1, 1], [0, 0, 0]]
-  def new_char(5), do: ~h(
+  def char(5), do: ~h(
   000
   111
   100
@@ -71,8 +66,7 @@ defmodule RoboClock.Charset do
   000
   )
 
-  def char(6), do: [[0, 0, 0], [1, 1, 1], [1, 0, 0], [1, 1, 1], [1, 0, 1], [1, 1, 1], [0, 0, 0]]
-  def new_char(6), do: ~h(
+  def char(6), do: ~h(
   000
   111
   100
@@ -82,8 +76,7 @@ defmodule RoboClock.Charset do
   000
   )
 
-  def char(7), do: [[0, 0, 0], [1, 1, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 1], [0, 0, 0]]
-  def new_char(7), do: ~h(
+  def char(7), do: ~h(
   000
   111
   001
@@ -93,8 +86,7 @@ defmodule RoboClock.Charset do
   000
   )
 
-  def char(8), do: [[0, 0, 0], [1, 1, 1], [1, 0, 1], [1, 1, 1], [1, 0, 1], [1, 1, 1], [0, 0, 0]]
-  def new_char(8), do: ~h(
+  def char(8), do: ~h(
   000
   111
   101
@@ -104,8 +96,7 @@ defmodule RoboClock.Charset do
   000
   )
 
-  def char(9), do: [[0, 0, 0], [1, 1, 1], [1, 0, 1], [1, 1, 1], [0, 0, 1], [0, 0, 1], [0, 0, 0]]
-  def new_char(9), do: ~h(
+  def char(9), do: ~h(
   000
   111
   101
@@ -115,8 +106,7 @@ defmodule RoboClock.Charset do
   000
   )
 
-  def char(0), do: [[0, 0, 0], [1, 1, 1], [1, 0, 1], [1, 0, 1], [1, 0, 1], [1, 1, 1], [0, 0, 0]]
-  def new_char(0), do: ~h(
+  def char(0), do: ~h(
   000
   111
   101
@@ -130,10 +120,7 @@ defmodule RoboClock.Charset do
   ############################## SPECIAL CHARACTERS ##############################
   ################################################################################
 
-  def char(:colon),
-    do: [[0], [0], [1], [0], [1], [0], [0]]
-
-  def new_char(:colon), do: ~h(
+  def char(:colon), do: ~h(
   0
   0
   1
@@ -143,10 +130,7 @@ defmodule RoboClock.Charset do
   0
   )
 
-  def char(:column),
-    do: [[0], [0], [0], [0], [0], [0], [0]]
-
-  def new_char(:column), do: ~h(
+  def char(:column), do: ~h(
   0
   0
   0
